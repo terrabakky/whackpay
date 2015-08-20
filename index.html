@@ -30,17 +30,21 @@
 
         <script>
             $(document).ready(function() {
+                // Add shoe images
                 for (var i = 0; i < 40; i++) {
-                    $("#shoes").append('<div class="product-image col-md-4"><img class="img img-rounded" src="/img/shoes'+i+'.jpg"/></div>');
+                    $("#shoes").append('<div class="product-wrap col-md-4"><img class="product-image half-fade img img-rounded" src="/img/shoes'+i+'.jpg"/>' +
+                        '<button class="buynow btn btn-info" ' +
+                        'style="display:none; position:absolute;top:150px;left:20px;opacity:1">Buy</button>' +
+                        '</div>');
                 }
 
+                // On hover fade image and show buy now button
                 $('.product-image').hover(
                     function() {
-                        $(this).css('opacity','0.5'); 
-                    }, function() {
-                        $(this).css('opacity','1');
+                        $(this).removeClass('half-fade');
+                        $(this).parent().find('button:last').fadeIn(); 
                     }
-                );
+                );                             
             });
         </script>
     </head>
@@ -62,8 +66,11 @@
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="/about_us.html">About</a></li>
+                <li><a href="/contact.html">Men's</a></li>
+                <li><a href="/contact.html">Women's</a></li>
+                <li><a href="/about_us.html">About Sam</a></li>
                 <li><a href="/contact.html">Contact</a></li>
+
               </ul>
             </div><!--/.nav-collapse -->
         </nav>
@@ -80,19 +87,19 @@
                 <div class="item active"  style="height:500px;">
                   <img src="/img/carousel1.jpg" alt="...">
                   <div class="carousel-caption" style="margin-top:-200px;">
-                    Shoes 1
+                    Ershad's Old Smelly Shoes
                   </div>
                 </div>
                 <div class="item" style="height:500px;">
                   <img src="/img/carousel2.jpg" alt="...">
                   <div class="carousel-caption">
-                    Shoes 2
+                    Women's Wedges
                   </div>
                 </div>
                 <div class="item"  style="height:500px;">
                   <img src="/img/carousel3.jpg" alt="...">
                   <div class="carousel-caption">
-                    Shoes 3
+                    This is actually plants.... My bad.
                   </div>
                 </div>
               </div>

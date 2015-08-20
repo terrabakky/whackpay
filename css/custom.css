@@ -6,8 +6,26 @@
 	margin-bottom: 40px;
 }
 
-.product-image {
+.product-wrap {
 	height: 200px;
 	overflow:hidden;
 	margin-bottom: 40px;
+	position:relative;
 }
+
+.product-wrap-short {
+	height: 150px;
+	overflow:hidden;
+	margin-bottom: 40px;
+	position:relative;
+}
+
+.product-image {
+
+}
+
+.half-fade {
+	opacity: 0.5;
+}
+
+

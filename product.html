@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Why are you reading this?</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/custom.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+
+        <script>
+            $(document).ready(function() {
+              $('#buy').click(function(e) {
+                e.preventDefault();
+                $('#npp').show();
+              });
+
+            var client = "?client_id=590b88a7-c67c-4048-9339-d0a58c9de104";
+            var remitter = "https://api.apim.ibmcloud.com/vralhau1ibmcom-whack-services/sb/v1/remitters/";
+            var invoice = "https://api.apim.ibmcloud.com/vralhau1ibmcom-whack-services/sb/v1/invoices";
+            $("#nppPay").click(function(e) {
+                var alias = $("#alias").val();
+
+                e.preventDefault();
+                // console.log(client + alias + remitter);
+                if (alias.length > 0){ 
+                  console.log(remitter + alias + client);
+
+
+                  $.ajax({
+                        type: 'GET',
+                        url: (remitter + alias + client),
+                        success: function(data) {
+                          // User exists
+                          console.log(invoice + client);
+                          
+                          $.ajax({
+                          type: 'POST',
+                          url: (invoice + client),
+                          contentType: "application/json",
+                          dataType: "json",
+                          data: JSON.stringify({
+                            invoice: "sp,etjomg3",
+                            amount: 202,
+                            remitterMobile: alias,
+                            merchantABN: "33007457142",
+                            created: (new Date($.now()))
+                          }),
+                          success: function(data) {
+                            $("#paid").show();
+                            $("#paid").click(function(e){
+                              
+                            });
+                          }
+                        });
+                        },
+                        error: function() {
+                          alert("Alias is not a NPP Registered Alias");
+                        }
+                      });
+                  } else {
+                    // TODO: Proper error message 
+                    alert("Please provide a NPP Registered Alias");
+                  }
+            });
+
+            });
+        </script>
+    </head>
+    <body>
+
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Sam's loves shoes.</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="/contact.html">Men's</a></li>
+                <li><a href="/contact.html">Women's</a></li>
+                <li><a href="/about_us.html">About Sam</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+
+              </ul>
+            </div><!--/.nav-collapse -->
+        </nav>
+        <div class="container" style="">
+          <div>
+            <h1>View Product</h1>
+            <h2 class="">Converse Chuck Taylor's</h2>
+
+            <div class="row">
+              <div class="col-md-6">
+                <img class="img" style="width: 100%;" src="/img/chucktaylors.jpg"/>
+              </div>
+              <div class="col-md-6">
+                <p>
+                  <strong>Description</strong><br>
+                  The classic, the original. The Converse Chuck Taylor's are essential to any respectable wardrobe.
+                </p>
+                <form role="form">
+                  <div class="form-group">
+                    <label>Size:</label>
+                    <select class="form-control">
+                      <option>7</option>
+                      <option>8</option>
+                      <option>9</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Color:</label>
+                    <select class="form-control">
+                      <option>Red</option>
+                      <option>Blue</option>
+                      <option>Black</option>
+                    </select>
+                  </div>
+                  <button id="buy" class="btn btn-primary">Buy now</button>
+                  <div id="npp" class="well" style="display:none;margin-top:20px;">
+                    <h3>Westpac PayNow</h3>
+
+                    <label>Alias: </label><br>
+                    <input id="alias" type="text" name="usrname" placeholder="Payment Alias...">
+                    <button id="nppPay" class="btn btn-success" type="submit" value="Submit">Pay Now</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <strong>People who bought these also liked:</strong><br>
+
+            <div class="row well">
+              <div class="col-md-12 product-wrap-short">
+                <img class="col-md-3" src="/img/shoes1.jpg">
+                <img class="col-md-3" src="/img/shoes2.jpg">
+                <img class="col-md-3" src="/img/shoes3.jpg">
+                <img class="col-md-3" src="/img/shoes4.jpg">
+              </div>            
+            </div>
+       
+          </div>
+
+        </div><!-- /.container -->
+
+    </body>
+</html>
