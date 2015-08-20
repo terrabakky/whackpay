@@ -1,0 +1,13 @@
+.row.products {
+    margin-bottom: 15px;
+}
+
+.thumb {
+	margin-bottom: 40px;
+}
+
+.product-image {
+	height: 200px;
+	overflow:hidden;
+	margin-bottom: 40px;
+}
