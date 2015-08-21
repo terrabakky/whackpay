@@ -1,0 +1,1 @@
+cf push whackpay -m 512m -b https://github.com/cloudfoundry-community/nginx-buildpack.git
