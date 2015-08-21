@@ -63,7 +63,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Sam's loves shoes.</a>
+              <a class="navbar-brand" href="#">
+                <img style="max-width:100%; margin-top:-25px;" src="/img/logo-small.png"/>
+              </a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
