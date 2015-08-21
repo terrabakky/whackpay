@@ -11,9 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
         <script src=".//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
@@ -76,8 +74,9 @@
                                 url: (invoice + "/" + data["id"]),
                                 success: function(data) {
                                   if (data["status"] == "accepted"){
-                                    //alert("accepted");
-                                    $(this).trigger('submit');
+                                    // modals baby
+                                    $('#myModal').modal('show');
+                                    $('#npp').fadeOut();
                                   } else if (data["status"] == "rejected"){
                                     $("#error-message").html("Payment has been rejected");
                                     $("#error-message").show();
@@ -125,11 +124,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Sam's loves shoes.</a>
+              <a class="navbar-brand" href="#">
+                <img style="max-width:100%; margin-top:-25px;" src="/img/logo-small.png"/>
+              </a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
                 <li><a href="/contact.html">Men's</a></li>
                 <li><a href="/contact.html">Women's</a></li>
                 <li><a href="/about_us.html">About Sam</a></li>
@@ -149,8 +150,13 @@
               </div>
               <div class="col-md-6">
                 <p>
+                  <h2>Our Price: <span class="text-info">$200</span> <span class="text-danger">(RRP: $320)</span></h2>
+                </p>
+                <p>
                   <strong>Description</strong><br>
-                  The classic, the original. The Converse Chuck Taylor's are essential to any respectable wardrobe.
+                  <i class="fa fa-music"></i> <i class="fa fa-music"></i> <i class="fa fa-music"></i> All the cool kids with the pumped up kicks. <i class="fa fa-music"></i> <i class="fa fa-music"></i> <i class="fa fa-music"></i> <br>
+
+                  <br>The classic, the original. The Converse Chuck Taylor's are essential to any respectable wardrobe.
                 </p>
                 <form role="form">
                   <div class="form-group">
@@ -183,7 +189,6 @@
               </div>
             </div>
             <strong>People who bought these also liked:</strong><br>
-
             <div class="row well">
               <div class="col-md-12 product-wrap-short">
                 <img class="col-md-3" src="./img/shoes1.jpg">
@@ -193,6 +198,23 @@
               </div>            
             </div>
        
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Payment Status</h4>
+                </div>
+                <div class="modal-body">
+                  <i class="fa fa-check fa-4x text-success"></i> Success! You won! We're packaging up your shoes for shipping as we speak!
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Okay, got it!</button>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div><!-- /.container -->
