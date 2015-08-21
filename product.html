@@ -15,7 +15,7 @@
         <!-- Optional theme -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src=".//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
@@ -37,7 +37,7 @@
 
             var client = "?client_id=590b88a7-c67c-4048-9339-d0a58c9de104";
             var remitter = "https://api.apim.ibmcloud.com/vralhau1ibmcom-whack-services/sb/v1/remitters/";
-            var invoice = "https://api.apim.ibmcloud.com/vralhau1ibmcom-whack-services/sb/v1/invoices";
+            var invoice = "http://backend-nj.mybluemix.net/api/invoices";
             $("#nppPay").click(function(e) {
                 var alias = $("#alias").val();
 
@@ -52,35 +52,60 @@
                         url: (remitter + alias + client),
                         success: function(data) {
                           // User exists
-                          console.log(invoice + client);
-                          
+                          //console.log(invoice + client);
                           $.ajax({
-                          type: 'POST',
-                          url: (invoice + client),
-                          contentType: "application/json",
-                          dataType: "json",
-                          data: JSON.stringify({
-                            invoice: "sp,etjomg3",
-                            amount: 202,
-                            remitterMobile: alias,
-                            merchantABN: "33007457142",
-                            created: (new Date($.now()))
-                          }),
-                          success: function(data) {
-                            $("#paid").show();
-                            $("#paid").click(function(e){
-                              
+                            type: 'POST',
+                            url: (invoice),
+                            contentType: "application/json",
+                            dataType: "json",
+                            data: JSON.stringify({
+                              title: "Converse Chuck Taylor's - " + $("#form-color").val() + " - " + $("#form-size").val(),
+                              cost: 200,
+                              status: "generated",
+                              alias: alias,
+                              abn: "33007457142"
+                            }),
+                            success: function(data) {
+                              //console.log(data["id"]);
+                              $("#proceed").show();
+                              $("#nppPay").hide();
+                              $("#proceed").click(function(e){
+                                e.preventDefault();
+                                $.ajax({
+                                type: 'GET',
+                                url: (invoice + "/" + data["id"]),
+                                success: function(data) {
+                                  if (data["status"] == "accepted"){
+                                    //alert("accepted");
+                                    $(this).trigger('submit');
+                                  } else if (data["status"] == "rejected"){
+                                    $("#error-message").html("Payment has been rejected");
+                                    $("#error-message").show();
+
+                                  } else if (data["status"] == "generated"){
+                                    //alert("nothing yet");
+                                    $("#error-message").html("Please accept payment request through your banking app");
+                                    $("#error-message").show();
+                                  }
+                                }
                             });
-                          }
-                        });
+                                
+                              });
+                            }
+                          });
+                        
                         },
                         error: function() {
-                          alert("Alias is not a NPP Registered Alias");
+                          //alert();
+                          $("#error-message").html("Alias is not a NPP Registered Alias");
+                          $("#error-message").show();
                         }
                       });
                   } else {
                     // TODO: Proper error message 
-                    alert("Please provide a NPP Registered Alias");
+                    //alert();
+                    $("#error-message").html("Please provide a NPP Registered Alias");
+                    $("#error-message").show();
                   }
             });
 
@@ -120,7 +145,7 @@
 
             <div class="row">
               <div class="col-md-6">
-                <img class="img" style="width: 100%;" src="/img/chucktaylors.jpg"/>
+                <img class="img" style="width: 100%;" src="./img/chucktaylors.jpg"/>
               </div>
               <div class="col-md-6">
                 <p>
@@ -130,7 +155,7 @@
                 <form role="form">
                   <div class="form-group">
                     <label>Size:</label>
-                    <select class="form-control">
+                    <select id="form-size" class="form-control">
                       <option>7</option>
                       <option>8</option>
                       <option>9</option>
@@ -138,7 +163,7 @@
                   </div>
                   <div class="form-group">
                     <label>Color:</label>
-                    <select class="form-control">
+                    <select id="form-color" class="form-control">
                       <option>Red</option>
                       <option>Blue</option>
                       <option>Black</option>
@@ -146,11 +171,14 @@
                   </div>
                   <button id="buy" class="btn btn-primary">Buy now</button>
                   <div id="npp" class="well" style="display:none;margin-top:20px;">
-                    <h3>Westpac PayNow</h3>
-
+                    <!--h3>Blink</h3-->
+                    <img src="./img/blink_Fina_PNGl.png" class="img-responsive" height="50" alt="Blink">
+                    <p id="error-message" class="bg-danger" style="display: none">Hello</p>
                     <label>Alias: </label><br>
                     <input id="alias" type="text" name="usrname" placeholder="Payment Alias...">
                     <button id="nppPay" class="btn btn-success" type="submit" value="Submit">Pay Now</button>
+                    <button id="proceed" class="btn btn-success" style="display:none" type="submit" value="Submit">Proceed</button>
+
                   </div>
                 </form>
               </div>
@@ -159,10 +187,10 @@
 
             <div class="row well">
               <div class="col-md-12 product-wrap-short">
-                <img class="col-md-3" src="/img/shoes1.jpg">
-                <img class="col-md-3" src="/img/shoes2.jpg">
-                <img class="col-md-3" src="/img/shoes3.jpg">
-                <img class="col-md-3" src="/img/shoes4.jpg">
+                <img class="col-md-3" src="./img/shoes1.jpg">
+                <img class="col-md-3" src="./img/shoes2.jpg">
+                <img class="col-md-3" src="./img/shoes3.jpg">
+                <img class="col-md-3" src="./img/shoes4.jpg">
               </div>            
             </div>
        
