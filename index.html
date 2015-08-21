@@ -12,9 +12,6 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-
         <script src=".//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         <script src="js/plugins.js"></script>
@@ -31,18 +28,23 @@
         <script>
             $(document).ready(function() {
                 // Add shoe images
+                $("#shoes").append('<div class="product-wrap col-md-4"><img style="width:250px;" class="product-image half-fade img img-rounded" src="./img/chucktaylors.jpg"/>' +
+                    '<a href="./product.html" class="buynow btn btn-info" ' +
+                    'style="display:none; position:absolute;top:150px;left:20px;opacity:1">Buy</a>' +
+                    '</div>');
                 for (var i = 0; i < 40; i++) {
                     $("#shoes").append('<div class="product-wrap col-md-4"><img class="product-image half-fade img img-rounded" src="./img/shoes'+i+'.jpg"/>' +
-                        '<button class="buynow btn btn-info" ' +
-                        'style="display:none; position:absolute;top:150px;left:20px;opacity:1">Buy</button>' +
+                        '<a href="./product.html" class="buynow btn btn-info" ' +
+                        'style="display:none; position:absolute;top:150px;left:20px;opacity:1">Buy</a>' +
                         '</div>');
                 }
+
 
                 // On hover fade image and show buy now button
                 $('.product-image').hover(
                     function() {
                         $(this).removeClass('half-fade');
-                        $(this).parent().find('button:last').fadeIn(); 
+                        $(this).parent().find('a:last').fadeIn(); 
                     }
                 );                             
             });
